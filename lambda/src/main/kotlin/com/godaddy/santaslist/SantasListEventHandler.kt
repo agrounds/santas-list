@@ -1,13 +1,12 @@
 package com.godaddy.santaslist
 
-import com.godaddy.santaslist.handler.AddChildEventHandler
-import com.godaddy.santaslist.handler.ChildActionEventHandler
+import com.godaddy.santaslist.handler.EventHandler
 import com.godaddy.santaslist.model.AddChildEvent
 import com.godaddy.santaslist.model.ChildActionEvent
 
 class SantasListEventHandler(
-    private val addChildEventHandler: AddChildEventHandler,
-    private val childActionEventHandler: ChildActionEventHandler
+    private val addChildEventHandler: EventHandler<AddChildEvent>,
+    private val childActionEventHandler: EventHandler<ChildActionEvent>
 ) {
     fun handleEvent(event: Any) {
         when (event) {
