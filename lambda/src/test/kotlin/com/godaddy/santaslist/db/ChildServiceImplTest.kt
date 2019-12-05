@@ -18,8 +18,8 @@ import org.mockito.MockitoAnnotations.initMocks
 internal class ChildServiceImplTest {
 
     companion object {
-        private val CHILD1 = Child(1, "name 1", "address 1", 1)
-        private val CHILD2 = Child(2, "name 2", "address 2", 2)
+        private val CHILD1 = Child(1, "name 1", 5, "address 1", 1)
+        private val CHILD2 = Child(2, "name 2", 8, "address 2", 2)
     }
 
     @Mock lateinit var childCache: Cache<Child>
