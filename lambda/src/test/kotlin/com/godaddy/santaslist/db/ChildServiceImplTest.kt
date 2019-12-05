@@ -4,7 +4,7 @@ import com.godaddy.santaslist.model.Child
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.inOrder
-import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
@@ -38,7 +38,7 @@ internal class ChildServiceImplTest {
             val id = invocation.arguments[0]
             if (id !is Int) throw RuntimeException("Got non-int id argument")
             childSet = childSet.plus(id)
-        }.whenever(childCache.put(any(), any()))
+        }.whenever(childCache).put(any(), any())
 
         whenever(childCache.get(any()))
             .thenAnswer { invocation ->
@@ -75,15 +75,12 @@ internal class ChildServiceImplTest {
     @Test
     internal fun putTwice() {
         unit.putChild(CHILD1)
-
-        verify(childCache).get(1)
-        verify(childCache).put(1, CHILD1)
-        verify(childDao).putChild(CHILD1)
-
         unit.putChild(CHILD1)
 
-        verify(childCache).get(1)
-        verify(childCache, never()).put(1, CHILD1)
+        verify(childCache, times(2)).get(1)
+        // verify data was only put once
+        verify(childCache, times(1)).put(1, CHILD1)
+        verify(childDao, times(1)).putChild(CHILD1)
         verifyNoMoreInteractions(childDao)
     }
 }

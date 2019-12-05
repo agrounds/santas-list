@@ -8,6 +8,7 @@ class ChildActionEventHandler(
     private val childService: ChildService,
     private val pointsCalculator: PointsCalculator
 ) : EventHandler<ChildActionEvent> {
+
     override fun handle(event: ChildActionEvent) {
         val child = childService.getChild(event.childId)
         if (child != null) {

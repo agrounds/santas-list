@@ -56,5 +56,6 @@ internal class SantasListEventHandlerTest {
         assertThrows<RuntimeException> {
             unit.handleEvent("bad event!")
         }
+        verifyZeroInteractions(addChildEventHandler, childActionEventHandler)
     }
 }

@@ -7,10 +7,13 @@ class ChildServiceImpl(
     private val childCache: Cache<Child>
 ) : ChildService {
     override fun putChild(child: Child) {
-        TODO("not implemented")
+        if (childCache.get(child.id) != child) {
+            childCache.put(child.id, child)
+            childDao.putChild(child)
+        }
     }
 
     override fun getChild(id: Int): Child? {
-        TODO("not implemented")
+        return childCache.get(id) ?: childDao.getChild(id)
     }
 }
